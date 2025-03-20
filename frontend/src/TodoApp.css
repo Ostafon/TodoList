@@ -1,0 +1,100 @@
+body {
+  background: linear-gradient(to right, #c2c2a3, #b3c6a7);
+  font-family: "Arial", sans-serif;
+}
+
+.container {
+  max-width: 500px;
+  margin: 30px auto;
+  background: #f8f8f8;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+h1 {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.input-container {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+input[type="text"] {
+  flex: 1;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+button {
+  padding: 8px 12px;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  margin-left: 5px;
+}
+
+button.delete {
+  background: #ff4d4d;
+  color: white;
+}
+
+button.edit {
+  background: #c4a000;
+  color: white;
+}
+
+button:hover {
+  opacity: 0.8;
+}
+
+.task-list {
+  margin-top: 10px;
+}
+
+.task-card {
+  background: white;
+  padding: 10px;
+  margin: 10px 0;
+  border-radius: 5px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-left: 4px solid #ccc;
+}
+
+.task-card .actions {
+  display: flex;
+  gap: 5px;
+}
+
+.task-card p {
+  margin: 0;
+  flex: 1;
+  text-align: left;
+}
+
+.completed {
+  text-decoration: line-through;
+  color: gray;
+}
+
+.edit-buttons {
+  display: flex;
+  gap: 5px;
+}
+
+.save-btn {
+  background: none;
+  color:green;
+}
+
+.cancel-btn {
+  background:none;
+  color: white;
+}

@@ -1,0 +1,17 @@
+# Игнорируем node_modules и файлы сборки фронта
+node_modules/
+build/
+dist/
+
+# Игнорируем зависимости Java и артефакты сборки бэка
+target/
+*.jar
+*.war
+*.class
+
+# Игнорируем файлы окружения и конфиги
+.env
+*.log
+.DS_Store
+.idea/
+.vscode/
