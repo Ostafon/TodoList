@@ -2,7 +2,6 @@ package com.ostafon.todoapp.controller;
 
 import com.ostafon.todoapp.model.Task;
 import com.ostafon.todoapp.service.TaskService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,8 +11,12 @@ import java.util.List;
 @RestController
 @RequestMapping("/tasks")
 public class TaskController {
-    @Autowired
+    final
     TaskService taskService;
+
+    public TaskController(TaskService taskService) {
+        this.taskService = taskService;
+    }
 
     @GetMapping()
     public ResponseEntity<List<Task>> getTasks() {

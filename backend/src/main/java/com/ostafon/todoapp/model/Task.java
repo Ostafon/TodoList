@@ -11,6 +11,8 @@ public class Task {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+    private String description;
+    private boolean completed;
 
     public Integer getId() {
         return id;
@@ -28,8 +30,6 @@ public class Task {
         this.description = description;
     }
 
-    private String description;
-
     public boolean isCompleted() {
         return completed;
     }
@@ -38,5 +38,4 @@ public class Task {
         this.completed = completed;
     }
 
-    private boolean completed;
 }

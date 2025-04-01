@@ -1,82 +1,134 @@
+/* Общие стили */
 body {
-  background: linear-gradient(to right, #c2c2a3, #b3c6a7);
-  font-family: "Arial", sans-serif;
+  background: linear-gradient(to right, #d4fc79, #96e6a1);
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  margin: 0;
+  padding: 0;
 }
 
 .container {
-  max-width: 500px;
+  max-width: 600px;
   margin: 30px auto;
-  background: #f8f8f8;
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+  background: #ffffff;
+  padding: 25px;
+  border-radius: 16px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
   text-align: center;
+  position: relative;
 }
 
+/* Заголовки */
 h1 {
-  font-size: 24px;
+  font-size: 28px;
   margin-bottom: 10px;
 }
 
+.connected {
+  font-size: 14px;
+  color: #333;
+  margin-bottom: 15px;
+}
+
+/* Поля ввода */
 .input-container {
   display: flex;
-  justify-content: space-between;
-  margin-bottom: 10px;
+  gap: 10px;
+  margin-bottom: 15px;
 }
 
-input[type="text"] {
+input[type="text"],
+input[type="email"] {
   flex: 1;
-  padding: 8px;
+  padding: 10px;
   border: 1px solid #ccc;
-  border-radius: 4px;
-}
-
-button {
-  padding: 8px 12px;
-  border: none;
-  cursor: pointer;
+  border-radius: 6px;
   font-size: 14px;
-  margin-left: 5px;
 }
 
+/* Кнопки */
+button {
+  padding: 10px 14px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background 0.3s ease, transform 0.1s ease;
+}
+
+button:hover {
+  opacity: 0.9;
+  transform: scale(1.02);
+}
+
+button:active {
+  transform: scale(0.98);
+}
+
+/* Цвета кнопок */
 button.delete {
-  background: #ff4d4d;
+  background-color: #ff4d4f;
   color: white;
 }
 
 button.edit {
-  background: #c4a000;
+  background-color: #f4a259;
   color: white;
 }
 
-button:hover {
-  opacity: 0.8;
+button.send {
+  background-color: #3498db;
+  color: white;
 }
 
+button.save-btn {
+  background-color: #28a745;
+  color: white;
+}
+
+button.cancel-btn {
+  background-color: #dc3545;
+  color: white;
+}
+
+.email-buttons {
+  justify-content: center;
+  display: flex;
+  margin: 20px 0;
+  gap: 10px;
+}
+
+.email-buttons button {
+  background-color: #5aaf76;
+  color: white;
+}
+
+/* Список задач */
 .task-list {
-  margin-top: 10px;
+  margin-top: 20px;
 }
 
 .task-card {
-  background: white;
-  padding: 10px;
-  margin: 10px 0;
-  border-radius: 5px;
+  background: #f9f9f9;
+  padding: 15px;
+  margin-bottom: 12px;
+  border-radius: 8px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-left: 4px solid #ccc;
+  border-left: 5px solid #ccc;
+  transition: background-color 0.3s ease;
 }
 
-.task-card .actions {
-  display: flex;
-  gap: 5px;
+.task-card.highlight {
+  background-color: #d2ffd2;
+  border-left: 5px solid #28a745;
 }
 
 .task-card p {
   margin: 0;
   flex: 1;
   text-align: left;
+  font-size: 15px;
 }
 
 .completed {
@@ -84,17 +136,82 @@ button:hover {
   color: gray;
 }
 
+.actions {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+
 .edit-buttons {
   display: flex;
-  gap: 5px;
+  gap: 8px;
 }
 
-.save-btn {
-  background: none;
-  color:green;
+/* Email блок */
+.email-list {
+  margin-top: 25px;
+  background: #fff6e0;
+  border-radius: 8px;
+  padding: 15px;
+  text-align: left;
 }
 
-.cancel-btn {
-  background:none;
+.email-list h3 {
+  margin-top: 0;
+  font-size: 18px;
+  border-bottom: 1px solid #ccc;
+  padding-bottom: 5px;
+}
+
+.email-list ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+.email-list li {
+  margin-bottom: 10px;
+  border-bottom: 1px dashed #ddd;
+  padding: 8px 0;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+/* Уведомление */
+.toast {
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #4caf50;
   color: white;
+  padding: 10px 16px;
+  border-radius: 8px;
+  font-weight: bold;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  animation: fadeInOut 2s ease;
+}
+
+@keyframes fadeInOut {
+  0% {
+    opacity: 0;
+    transform: translateX(-50%) translateY(-20px);
+  }
+  20% {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+  80% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(-50%) translateY(-10px);
+  }
+}
+
+/* Пустое состояние */
+.empty-text {
+  color: #888;
+  margin-top: 30px;
+  font-style: italic;
 }
