@@ -1,6 +1,11 @@
-FROM ubuntu:latest
-LABEL authors="sasha"
+# Stage 1: Build
+FROM maven:3.9.4-eclipse-temurin-21 AS builder
+WORKDIR /app
+COPY . .
+RUN mvn clean package -DskipTests
 
+# Stage 2: Run
 FROM openjdk:21-jdk
-COPY target/todo-service.jar todo-service.jar
+WORKDIR /app
+COPY --from=builder /app/target/todo-service.jar todo-service.jar
 ENTRYPOINT ["java", "-jar", "todo-service.jar"]
