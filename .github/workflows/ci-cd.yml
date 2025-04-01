@@ -42,7 +42,7 @@ jobs:
                     --name mysql \
                     --network todo-net \
                     -p 3306:3306 \
-                    todo-mysql
+                    ${{ secrets.DOCKER_USERNAME }}/todo-mysql
 
             - name: Ожидание запуска MySQL
               run: sleep 5
