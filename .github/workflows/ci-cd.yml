@@ -1,1 +1,85 @@
- 
+name: CI/CD Pipeline
+
+on:
+    push:
+        branches:
+            - main
+
+jobs:
+    build-test-deploy:
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Клонирование репозитория
+              uses: actions/checkout@v3
+
+            - name: Установка Docker Buildx
+              uses: docker/setup-buildx-action@v3
+
+            - name: Логин в Docker Hub
+              uses: docker/login-action@v3
+              with:
+                  username: ${{ secrets.DOCKER_USERNAME }}
+                  password: ${{ secrets.DOCKER_PASSWORD }}
+
+            - name: Сборка и тегирование образа бэкенда
+              run: |
+                  docker build -t ${{ secrets.DOCKER_USERNAME }}/todo-backend:latest ./backend
+
+            - name: Сборка и тегирование образа фронтенда
+              run: |
+                  docker build -t ${{ secrets.DOCKER_USERNAME }}/todo-frontend:latest ./frontend
+
+            - name: Сборка и тегирование образа базы данных
+              run: |
+                  docker build -t ${{ secrets.DOCKER_USERNAME }}/todo-mysql:latest ./database
+
+            - name: Создание общей сети для контейнеров
+              run: docker network create todo-net
+
+            - name: Запуск контейнера базы данных (MySQL)
+              run: |
+                  docker run -d \
+                    --name mysql \
+                    --network todo-net \
+                    -p 3306:3306 \
+                    todo-mysql
+
+            - name: Ожидание запуска MySQL
+              run: sleep 5
+
+            - name: Запуск контейнера бэкенда
+              run: |
+                  docker run -d \
+                    --name backend \
+                    --network todo-net \
+                    -p 8080:8080 \
+                    ${{ secrets.DOCKER_USERNAME }}/todo-backend:latest
+
+            - name: Запуск контейнера фронтенда
+              run: |
+                  docker run -d \
+                    --name frontend \
+                    --network todo-net \
+                    -p 3000:80 \
+                    ${{ secrets.DOCKER_USERNAME }}/todo-frontend:latest
+
+            - name: Ожидание запуска приложений
+              run: sleep 10
+
+            - name: Проверка доступности бэкенда
+              run: curl --fail http://localhost:8080/tasks
+
+            - name: Проверка доступности фронтенда
+              run: curl --fail http://localhost:3000
+
+            - name: Остановка и удаление контейнеров
+              run: |
+                  docker stop frontend backend mysql
+                  docker rm frontend backend mysql
+                  docker network rm todo-net
+
+            - name: Загрузка образов на Docker Hub
+              run: |
+                  docker push ${{ secrets.DOCKER_USERNAME }}/todo-backend:latest
+                  docker push ${{ secrets.DOCKER_USERNAME }}/todo-frontend:latest
